@@ -1,0 +1,25 @@
+[project]
+name = "football-project"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = [
+    "dbt>=2.0.9",
+    "dbt-core>=1.12.6",
+    "dbt-duckdb>=1.11.1",
+    "fastapi>=0.162.0",
+    "numpy>=2.5.4",
+    "pandas>=3.1.0",
+    "polars>=2.1.0",
+    "pyarrow>=26.0.0",
+    "requests>=2.34.2",
+    "uvicorn>=0.54.0",
+]
+
+[project.scripts]
+football-project = "football_project:main"
+
+[build-system]
+requires = ["uv_build>=0.13.6,<0.14.0"]
+build-backend = "uv_build"

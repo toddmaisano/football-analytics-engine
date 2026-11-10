@@ -1,0 +1,11 @@
+version: 2
+
+sources:
+  - name: raw
+    database: football_warehouse
+    schema: raw
+    tables:
+      - name: epl_historical_matches
+      - name: pl_team_match_stats
+      - name: gabor_matches
+      - name: gabor_elo

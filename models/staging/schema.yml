@@ -1,0 +1,82 @@
+version: 2
+
+models:
+  - name: stg_epl_matches
+    description: "Standardized historical match results from football-data.co.uk with unified team names and deduplicated fixtures."
+    columns:
+      - name: match_date
+        tests:
+          - not_null
+      - name: home_team
+        tests:
+          - not_null
+      - name: away_team
+        tests:
+          - not_null
+      - name: full_time_result
+        tests:
+          - not_null
+          - accepted_values:
+              arguments:
+                values: ['H', 'D', 'A']
+
+  - name: stg_belkat_team_stats
+    description: "Standardized team-level tactical metrics and expected goals (xG) scraped from Belkat events dataset."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - match_id
+              - team_name
+    columns:
+      - name: match_id
+        tests:
+          - not_null
+      - name: match_date
+        tests:
+          - not_null
+      - name: team_name
+        tests:
+          - not_null
+      - name: xg_total
+        tests:
+          - not_null
+
+  - name: stg_gabor_matches
+    description: "Standardized historical fixture match records from Gábor Elo source."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - match_date
+              - home_team
+              - away_team
+    columns:
+      - name: match_date
+        tests:
+          - not_null
+      - name: home_team
+        tests:
+          - not_null
+      - name: away_team
+        tests:
+          - not_null
+
+  - name: stg_gabor_elo
+    description: "Daily and matchday Elo ratings per team from Gábor Elo source."
+    tests:
+      - dbt_utils.unique_combination_of_columns:
+          arguments:
+            combination_of_columns:
+              - rating_date
+              - team_name
+    columns:
+      - name: rating_date
+        tests:
+          - not_null
+      - name: team_name
+        tests:
+          - not_null
+      - name: elo_rating
+        tests:
+          - not_null
